@@ -9,68 +9,22 @@
 
 .content {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   align-items: center;
-  gap: 3rem;
-  align-self: stretch;
+
   flex-wrap: wrap;
   justify-content: center;
-}
+  max-width: 480px;
 
-.texts {
-  display: flex;
-
-  min-width: 200px;
-  max-width: 350px;
-  flex-direction: column;
-  align-items: flex-start;
-
-  align-self: stretch;
-  gap: 1rem;
-}
-
-.headlineContent {
-  color: #000;
-  font-family: Inter;
-  font-size: 24px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: normal;
-}
-
-.bodyContent {
-  color: #000;
-  font-family: Inter;
-  font-size: 16px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: normal;
-}
-
-h3 {
-  display: flex;
-  font-size: 1.17em;
-  margin-block-start: 0em;
-  margin-block-end: 0em;
-  margin-inline-start: 0px;
-  margin-inline-end: 0px;
-  font-weight: bold;
-}
-
-p {
-  display: block;
-  margin-block-start: 0em;
-  margin-block-end: 0em;
-  margin-inline-start: 0px;
-  margin-inline-end: 0px;
+  max-height: 100%;
 }
 
 .activeDiv {
-  padding: 10px;
   border: 1px solid #ccc;
   cursor: pointer;
   position: relative;
   overflow: visible;
+  width: 100%;
 }
 
 .active {
@@ -83,4 +37,54 @@ p {
   left: 0;
   z-index: 10;
   width: 100%;
+}
+input[type="range"][orient="vertical"] {
+  -webkit-appearance: slider-vertical;
+  width: 16px;
+  height: 175px;
+  padding: 0 5px;
+}
+
+.vertical-wrapper {
+  display: inline-block;
+  width: 16px;
+  height: 175px;
+  position: absolute;
+  padding: 0 5px;
+  z-index: 100;
+  top: 0px;
+  right: 0px;
+}
+
+.nextDiv {
+  display: flex;
+  width: 100%;
+  position: fixed;
+  bottom: 0px;
+  z-index: 10;
+  margin: 8px;
+  justify-content: center;
+}
+
+.styledButton {
+  background-color: aquamarine;
+  color: #333;
+  width: 100%;
+  height: 48px;
+  margin: 10px 20px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+  max-width: 480px;
+}
+
+/* Hover state styles */
+.styledButton:hover {
+  background-color: lightblue;
+  color: #fff;
+}
+
+/* Pressed (Active) state styles */
+.styledButton:active {
+  background-color: darkcyan;
 }
