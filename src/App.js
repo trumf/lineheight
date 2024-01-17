@@ -1,9 +1,25 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
 
+const shortTexts = ["Lorem ipsum dolor sit amet consectetur"];
+const mediumTexts = [
+  "Lorem ipsum dolor sit amet consectetur. Imperdiet tellus etiam velit integer tristique sed viverra nunc vel. Dictumst sollicitudin orci arcu fames tortor faucibus. Platea tincidunt at hendrerit imperdiet scelerisque. Senectus suscipit elementum blandit euismod.",
+];
+const longTexts = [
+  "Lorem ipsum dolor sit amet consectetur. Ornare magna fermentum turpis aliquam sed sed. Euismod purus sem lacus auctor nibh hendrerit volutpat lacus. Tincidunt sed vel ultricies cras eu rhoncus. Lectus ornare ultricies faucibus consequat risus neque ultrices vestibulum sociis. Vitae id mattis quis sit a lacus hendrerit. Senectus sem hac et risus facilisis leo. Scelerisque praesent egestas faucibus neque morbi pharetra semper eu. Libero arcu sem vel cursus in lobortis egestas. Mi quis semper donec parturient vulputate ipsum senectus egestas. Risus purus lectus fringilla euismod.",
+];
+
+const getRandomListItem = (list) => {
+  const randomIndex = Math.floor(Math.random() * list.length);
+  return list[randomIndex];
+};
+
 export default function App() {
   const [activeDiv, setActiveDiv] = useState(null);
   const [randomSize, setRandomSize] = useState(0);
+  const [exampleText, setExampleText] = useState(
+    "Lorem ipsum dolor sit amet consectetur"
+  );
 
   useEffect(() => {
     // Function to generate a random font size between 8 and 100
@@ -14,6 +30,16 @@ export default function App() {
     // Set the random font size when the component mounts
     setRandomSize(generateRandomFontSize());
   }, []); // Empty dependency array ensures the effect runs only once on mount
+
+  useEffect(() => {
+    if (randomSize < 20) {
+      setExampleText(getRandomListItem(longTexts));
+    } else if (randomSize >= 20 && randomSize < 48) {
+      setExampleText(getRandomListItem(mediumTexts));
+    } else {
+      setExampleText(getRandomListItem(shortTexts));
+    }
+  }, [randomSize]);
 
   const handleDivClick = (divId) => {
     setActiveDiv((prevActiveDiv) => (prevActiveDiv === divId ? null : divId));
@@ -32,7 +58,7 @@ export default function App() {
           onClick={() => handleDivClick(1)}
           randomSize={randomSize}
         >
-          Urna adipiscing amet sit justo nisl. Fames viverra at id id.
+          {exampleText}
         </ActiveDiv>
       </div>
       <div className="nextDiv">
@@ -46,6 +72,13 @@ export default function App() {
 
 const ActiveDiv = ({ children, divId, isActive, onClick, randomSize }) => {
   const [sliderValue, setSliderValue] = useState(50);
+  const [fontWeight, setFontWeight] = useState(500);
+
+  const fontWeights = [100, 500, 900];
+
+  useEffect(() => {
+    setFontWeight(getRandomListItem(fontWeights));
+  }, []); // Empty dependency array ensures the effect runs only once on mount
 
   const handleSliderChange = (event) => {
     event.stopPropagation();
@@ -58,40 +91,28 @@ const ActiveDiv = ({ children, divId, isActive, onClick, randomSize }) => {
   };
 
   const textStyle = {
-    lineHeight: `${sliderValue}%`, // Adjust line height based on the slider value
+    lineHeight: `${sliderValue}px`, // Adjust line height based on the slider value
     fontSize: `${randomSize}px`,
+    fontWeight: `${fontWeight}`,
   };
 
   return (
-    <div className={`activeDiv ${isActive ? "active" : ""}`}>
+    <div className="activeDiv">
       <div onClick={handleClick}>
         <span style={textStyle}>{children}</span>
       </div>
-      {isActive && (
-        <div className="vertical-wrapper">
-          <input
-            type="range"
-            min="100"
-            max="500"
-            step="10"
-            orient="vertical"
-            value={sliderValue}
-            onChange={handleSliderChange}
-          />
-        </div>
 
-        // <div className="sliderContainer">
-        //   <input
-        //     type="range"
-        //     min="100"
-        //     max="500"
-        //     step="10"
-        //     value={sliderValue}
-        //     onChange={handleSliderChange}
-        //     style={{ width: "100%" }}
-        //   />
-        // </div>
-      )}
+      <div>
+        <input
+          type="range"
+          min="-10"
+          max="100"
+          step="1"
+          orient="vertical"
+          value={sliderValue}
+          onChange={handleSliderChange}
+        />
+      </div>
     </div>
   );
 };
