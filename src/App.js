@@ -1,17 +1,75 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
 
-const shortTexts = ["Lorem ipsum dolor sit amet consectetur"];
+const shortTexts = [
+  "Everyone has the right to life, liberty and security of person.",
+  "No one shall be held in slavery or servitude; slavery and the slave trade shall be prohibited in all their forms.",
+  "No one shall be subjected to torture or to cruel, inhuman or degrading treatment or punishment.",
+  "Everyone has the right to recognition everywhere as a person before the law.",
+  "No one shall be subjected to arbitrary arrest, detention or exile.",
+  "Everyone has the right to freedom of movement and residence within the borders of each state.",
+  "Everyone has the right to seek and to enjoy in other countries asylum from persecution.",
+  "Everyone, without any discrimination, has the right to equal pay for equal work.",
+  "Everyone has the right to form and to join trade unions for the protection of his interests.",
+  "Everyone has the right to rest and leisure, including reasonable limitation of working hours and periodic holidays with pay.",
+  "Everyone has duties to the community in which alone the free and full development of his personality is possible.",
+  "",
+];
 const mediumTexts = [
-  "Lorem ipsum dolor sit amet consectetur. Imperdiet tellus etiam velit integer tristique sed viverra nunc vel. Dictumst sollicitudin orci arcu fames tortor faucibus. Platea tincidunt at hendrerit imperdiet scelerisque. Senectus suscipit elementum blandit euismod.",
+  "All human beings are born free and equal in dignity and rights. They are endowed with reason and conscience and should act towards one another in a spirit of brotherhood.",
+  "Everyone has the right to freedom of opinion and expression; this right includes freedom to hold opinions without interference and to seek, receive and impart information and ideas through any media and regardless of frontiers.",
+  "The will of the people shall be the basis of the authority of government; this will shall be expressed in periodic and genuine elections which shall be by universal and equal suffrage and shall be held by secret vote or by equivalent free voting procedures.",
+  "Everyone has the right to work, to free choice of employment, to just and favourable conditions of work and to protection against unemployment.",
+  "Education shall be directed to the full development of the human personality and to the strengthening of respect for human rights and fundamental freedoms. It shall promote understanding, tolerance and friendship among all nations, racial or religious groups, and shall further the activities of the United Nations for the maintenance of peace.",
+  "Everyone has the right to the protection of the moral and material interests resulting from any scientific, literary or artistic production of which he is the author.",
+  "",
 ];
 const longTexts = [
-  "Lorem ipsum dolor sit amet consectetur. Ornare magna fermentum turpis aliquam sed sed. Euismod purus sem lacus auctor nibh hendrerit volutpat lacus. Tincidunt sed vel ultricies cras eu rhoncus. Lectus ornare ultricies faucibus consequat risus neque ultrices vestibulum sociis. Vitae id mattis quis sit a lacus hendrerit. Senectus sem hac et risus facilisis leo. Scelerisque praesent egestas faucibus neque morbi pharetra semper eu. Libero arcu sem vel cursus in lobortis egestas. Mi quis semper donec parturient vulputate ipsum senectus egestas. Risus purus lectus fringilla euismod.",
+  "Everyone is entitled to all the rights and freedoms set forth in this Declaration, without distinction of any kind, such as race, colour, sex, language, religion, political or other opinion, national or social origin, property, birth or other status. Furthermore, no distinction shall be made on the basis of the political, jurisdictional or international status of the country or territory to which a person belongs, whether it be independent, trust, non-self-governing or under any other limitation of sovereignty.",
+  "",
+  "Be exactly who you want to be, do what you want to do I am he and she is she but you're the only you No one else has got your eyes, can see the things you see Its up to you to change your life and my lifes up to me The problems that you suffer from are problems that you make The shit we have to climb through is the shit we choose to take If you dont like the life you live, change it now it's yours Nothing has effects if you don't recognize the cause",
+  "",
 ];
 
 const getRandomListItem = (list) => {
   const randomIndex = Math.floor(Math.random() * list.length);
   return list[randomIndex];
+};
+
+const fontData = [
+  ["Bitter, sans-serif", [100, 500, 900]],
+  ["Bodoni Moda, serif", [400, 500, 900]],
+  ["Chivo Mono, monospace", [100, 500, 900]],
+  ["Dancing Script, cursive", [500]],
+  ["Hepta Slab, serif", [100, 500, 900]],
+  ["IBM Plex Mono, monospace", [100, 500, 700]],
+  ["Imbue, sans-serif", [100, 500, 900]],
+  ["Josefin Sans, sans-serif", [100, 500, 700]],
+  ["Shantell Sans, sans-serif", [300, 500, 900]],
+];
+
+const sliderValues = [
+  [-25, -20, -15, -10, -5, 0, 5, 10],
+  [80, 90, 100, 110, 120, 130, 140],
+];
+
+const getRandomFont = () => {
+  const randomFont = fontData[Math.floor(Math.random() * fontData.length)];
+  const selectedFont = randomFont[0];
+  const availableWeights = randomFont[1];
+  const randomWeight =
+    availableWeights[Math.floor(Math.random() * availableWeights.length)];
+
+  return { fontFamily: selectedFont, fontWeight: randomWeight };
+};
+
+const getRandomSliderValues = () => {
+  console.log(sliderValues);
+  const minValue =
+    sliderValues[0][Math.floor(Math.random() * sliderValues[0].length)];
+  const maxValue =
+    sliderValues[1][Math.floor(Math.random() * sliderValues[1].length)];
+  return { maxValue: maxValue, minValue: minValue };
 };
 
 export default function App() {
@@ -24,7 +82,7 @@ export default function App() {
   useEffect(() => {
     // Function to generate a random font size between 8 and 100
     const generateRandomFontSize = () => {
-      return Math.floor(Math.random() * (100 - 8 + 1)) + 8;
+      return Math.floor(Math.random() * (120 - 8 + 1)) + 8;
     };
 
     // Set the random font size when the component mounts
@@ -63,7 +121,7 @@ export default function App() {
       </div>
       <div className="nextDiv">
         <button className="styledButton" onClick={handleNextButtonClick}>
-          Next
+          Another one
         </button>
       </div>
     </div>
@@ -73,12 +131,25 @@ export default function App() {
 const ActiveDiv = ({ children, divId, isActive, onClick, randomSize }) => {
   const [sliderValue, setSliderValue] = useState(50);
   const [fontWeight, setFontWeight] = useState(500);
-
-  const fontWeights = [100, 500, 900];
+  const [selectedFont, setSelectedFont] = useState("Inter, sans-serif");
+  const [sliderRange, setSliderRange] = useState([-10, 100]);
 
   useEffect(() => {
-    setFontWeight(getRandomListItem(fontWeights));
+    const font = getRandomFont();
+    setFontWeight(font.fontWeight);
+    setSelectedFont(font.fontFamily);
   }, []); // Empty dependency array ensures the effect runs only once on mount
+
+  useEffect(() => {
+    const slidersss = getRandomSliderValues();
+    setSliderRange(slidersss);
+
+    setSliderValue(
+      Math.floor(
+        Math.random() * (slidersss.maxValue - slidersss.minValue + 1)
+      ) + slidersss.minValue
+    );
+  }, []);
 
   const handleSliderChange = (event) => {
     event.stopPropagation();
@@ -93,7 +164,8 @@ const ActiveDiv = ({ children, divId, isActive, onClick, randomSize }) => {
   const textStyle = {
     lineHeight: `${sliderValue}px`, // Adjust line height based on the slider value
     fontSize: `${randomSize}px`,
-    fontWeight: `${fontWeight}`,
+    fontFamily: selectedFont,
+    fontWeight: fontWeight,
   };
 
   return (
@@ -102,11 +174,11 @@ const ActiveDiv = ({ children, divId, isActive, onClick, randomSize }) => {
         <span style={textStyle}>{children}</span>
       </div>
 
-      <div>
+      <div className="vertical-wrapper">
         <input
           type="range"
-          min="-10"
-          max="100"
+          min={sliderRange.minValue}
+          max={sliderRange.maxValue}
           step="1"
           orient="vertical"
           value={sliderValue}
