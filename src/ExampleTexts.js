@@ -1,4 +1,11 @@
-export const extraShortTexts = ["extra short text"];
+export const extraShortTexts = [
+  "And you could have it all",
+  "Take me anywhere, I don’t care",
+  "It has never lost its glamour",
+  "Begin in delight and end in wisdom",
+  "You may write me down in history",
+  "I am so perfect so divine so ethereal so surreal",
+];
 
 export const shortTexts = [
   "Everyone has the right to life, liberty and security of person.",

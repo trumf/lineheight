@@ -27,18 +27,19 @@ const getRandomSliderValues = (randomSize) => {
 };
 
 const SizeSlider = ({ randomSize, setSliderValue }) => {
-  const [internalSliderValue, setInternalSliderValue] = useState(50);
+  const [internalSliderValue, setInternalSliderValue] = useState();
   const [sliderRange, setSliderRange] = useState([-10, 100]);
 
   useEffect(() => {
     const slidersss = getRandomSliderValues(randomSize);
     setSliderRange(slidersss);
 
-    setInternalSliderValue(
+    const randomValue =
       Math.floor(
         Math.random() * (slidersss.maxValue - slidersss.minValue + 1)
-      ) + slidersss.minValue
-    );
+      ) + slidersss.minValue;
+    setInternalSliderValue(randomValue);
+    setSliderValue(randomValue);
   }, [randomSize]);
 
   const handleSliderChange = (e) => {

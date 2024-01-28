@@ -57,7 +57,7 @@ const getRandomFont = () => {
 export default function App() {
   const [randomSize, setRandomSize] = useState(0);
   const [exampleText, setExampleText] = useState("");
-  const [sliderValue, setSliderValue] = useState(50);
+  const [sliderValue, setSliderValue] = useState();
 
   const handleNextButtonClick = () => {
     // Reload the page
