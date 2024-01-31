@@ -108,6 +108,21 @@ export default function App() {
           Another one
         </button>
       </div>
+      <div
+        style={{
+          position: "fixed",
+          bottom: "8px",
+          right: "8px",
+        }}
+      >
+        <a href="https://librecounter.org/referer/show" target="_blank">
+          <img
+            src="https://librecounter.org/outline-orange.svg"
+            referrerPolicy="unsafe-url"
+            style={{ width: "32px", height: "32px" }}
+          />
+        </a>
+      </div>
     </div>
   );
 }
