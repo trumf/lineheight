@@ -36,7 +36,11 @@ const TopTitle = ({ randomSize, sliderValue }) => {
 
   return (
     <div className="header">
-      <img src={process.env.PUBLIC_URL + "/lineheightlogo.png"} alt="logo" />
+      <img
+        src={process.env.PUBLIC_URL + "/lineheightlogo.png"}
+        alt="logo"
+        style={{ width: "24px", height: "24px" }}
+      />
       <h1>
         lineHeight:<span> {heightRatio}%</span>
       </h1>
