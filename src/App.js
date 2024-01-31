@@ -115,13 +115,12 @@ export default function App() {
           right: "8px",
         }}
       >
-        <a href="https://librecounter.org/referer/show" target="_blank">
-          <img
-            src="https://librecounter.org/outline-orange.svg"
-            referrerPolicy="unsafe-url"
-            style={{ width: "32px", height: "32px" }}
-          />
-        </a>
+        <img
+          src="https://librecounter.org/counter.svg"
+          referrerPolicy="unsafe-url"
+          width="0"
+          alt="Anonomous statistics"
+        />
       </div>
     </div>
   );
